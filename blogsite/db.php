@@ -1,13 +1,13 @@
 <?php
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
-$pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
 date_default_timezone_set('Asia/Calcutta');
 
 /*LOGIN*/
 function login($uid, $upd)
 {
-    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
 
     $sql = "SELECT uid FROM credentials WHERE uid = :uid and upd = :upd ";
     $stmt=$pdo->prepare($sql);
@@ -18,7 +18,8 @@ function login($uid, $upd)
 /*Admin check*/
 function admin($uid)
 {
-    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
     $sql = "SELECT admin FROM credentials WHERE uid='". $uid."'";
     $stmt=$pdo->query($sql);
     $row=$stmt->fetch(PDO::FETCH_ASSOC);
@@ -28,7 +29,8 @@ function admin($uid)
 /*SIGN-UP*/
 function sign_up($name,$email,$uid, $upd)
 {
-    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
     $stmt2 = $pdo->query('SELECT * FROM credentials where uid="'. $uid.'"');
     if ($row=$stmt2->fetch(PDO::FETCH_ASSOC))
     {
@@ -52,7 +54,8 @@ function sign_up($name,$email,$uid, $upd)
 /*ALL-BLOGS*/
 function disp_all_blog()
 {
-    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
+    include_once("db_credentials.php");
+    $pdo= new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
     $stmt2 = $pdo->query('SELECT blogid, blogname, blogdate, blogcontent FROM blog ORDER BY blogdate DESC');
     while($row=$stmt2->fetch(PDO::FETCH_ASSOC))
     {
@@ -66,7 +69,8 @@ function disp_all_blog()
 /*RECENT-BLOGS */
 function disp_recent_blog()
 {
-    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
     $stmt2 = $pdo->query('SELECT blogid, blogname, blogdate, blogcontent FROM blog ORDER BY blogdate DESC');
     $count=0;
     while($row=$stmt2->fetch(PDO::FETCH_ASSOC))
@@ -85,7 +89,8 @@ function disp_recent_blog()
 /*ACCOUNT-BLOGS */  
 function disp_account_blog($uid)
 {
-    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
     $stmt2 = $pdo->query('SELECT blogid, blogname, blogdate, blogcontent FROM blog where uid="'. $uid.'" ORDER BY blogdate DESC');
     while($row=$stmt2->fetch(PDO::FETCH_ASSOC))
     {
@@ -102,7 +107,8 @@ function disp_account_blog($uid)
 /*VIEW-POST*/   
 function view_post($blogid,$admin,$logged_in,$uid)
 {
-    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
     $stmt2 = $pdo->query('SELECT blogid, blogname, blogdate, blogcontent FROM blog where blogid='. $blogid);
     while($row=$stmt2->fetch(PDO::FETCH_ASSOC))
     {
@@ -129,7 +135,8 @@ function view_post($blogid,$admin,$logged_in,$uid)
 /*DELETE*/
 function delete_post($blogid)
 {
-    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
     $stmt2 = $pdo->query('DELETE FROM blog where blogid='. $blogid);
     $row=$stmt2->fetch(PDO::FETCH_ASSOC);
     echo "<p id='g'>Blog deleted successfully !<p>";
@@ -138,7 +145,8 @@ function delete_post($blogid)
 /*Do Edit*/
 function edit($blogid,$content)
 {
-    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
     $sql='UPDATE blog SET blogcontent=? where blogid=?';
     $stmt = $pdo->prepare($sql);
     if ($stmt->execute([$content,$blogid]) === TRUE )
@@ -154,7 +162,8 @@ function edit($blogid,$content)
 /*Edit Display*/
 function edit_post($blogid)
 {
-    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
     $stmt2 = $pdo->query('SELECT * FROM blog where blogid='. $blogid);
     $row=$stmt2->fetch(PDO::FETCH_ASSOC);
 
@@ -176,6 +185,7 @@ function edit_post($blogid)
 /*Create Blog*/
 function create_post($uid)
 {
+    include_once("db_credentials.php");
     echo '<h1>Create your new blog</h1>';
     echo '<form method="post">';
     echo '<input type="text" name="c_title" placeholder="Enter blog title here"/>';
@@ -193,7 +203,8 @@ function create_post($uid)
 /*Creating*/
 function creating($uid,$title,$content)
 {
-    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
     $sql = 'INSERT INTO blog (blogname,blogdate,blogcontent,uid) VALUES ("'.$title.'","'.date("Y-m-d").'","'.$content.'", "'.$uid.'")';
     if ($pdo->query($sql) === FALSE) 
     {
@@ -209,18 +220,19 @@ function creating($uid,$title,$content)
 /* user info*/
 function user_info()
 {
-    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
     $stmt2 = $pdo->query('SELECT * FROM credentials');
-    $user="";
     echo "<table>";
     echo "<tr>";
-    echo "<th>User Number</th>";
     echo "<th>User ID</th>";
     echo "<th>User Password</th>";
     echo "<th>Name</th>";
     echo "<th>Admin</th>";
     echo "<th>Admin Update</th>";
     echo "<th>Email</th>";
+    echo "<th>Update</th>";
+    echo "<th>Delete</th>";
     echo "</tr>";
     
     while ($row=$stmt2->fetch(PDO::FETCH_ASSOC))
@@ -235,8 +247,9 @@ function user_info()
         echo '<td><input type="radio" name="admin" value="yes">YES  </input>';
         echo '<input type="radio" name="admin" value="no">  NO</input></td>';
         echo '<td><input type="email" name="email" value="'.$row['email'].'""></input></td>';
-        echo "</tr>"; 
         echo '<td><button name="update_button"> Update Information</button></td>';
+        echo '<td><button name="delete_button"> Delete Information</button></td>';
+        echo "</tr>"; 
         echo '</form>';
     }
         
@@ -250,20 +263,83 @@ function user_info()
         updating_user_info($_POST["uno"],$_POST["uid"],$_POST["upd"],$_POST["name"],$_POST["admin"],$_POST["email"]);
         
     }
+    if (isset($_POST["delete_button"]))
+    {
+        delete_user_info($_POST["uno"]);
+    }
 }
 
 /*Updating user info*/
 function updating_user_info($uno,$uid,$upd,$name,$admin,$email)
 {
-    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people','anjali','ctc');
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
     $sql='UPDATE credentials SET uid=?,upd=?,name=?,admin=?,email=? where uno=?';
     $stmt = $pdo->prepare($sql);
     if ($stmt->execute([$uid,$upd,$name,$admin,$email,$uno]) === TRUE )
     {
         "<p id='g'>Information Update successful. Please  Refresh !<p>";
+        return "pass";
     }
     else
     {
         echo "<p id='e'>Information Update unsuccessful. Try Again !<p>";
+    }
+}
+
+/*Delete User Info*/
+function delete_user_info($uno)
+{
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
+    $stmt2 = $pdo->query('DELETE FROM credentials where uno='. $uno);
+    $row=$stmt2->fetch(PDO::FETCH_ASSOC);
+    echo "<p id='g'>User deleted successfully . Please refresh!<p>";
+}
+
+/*personal info*/
+function personal_info($uid)
+{
+    include_once("db_credentials.php");
+    $pdo=new PDO('mysql:host=localhost;port=3307;dbname=people', 'anjali', 'ctc');
+    $stmt2 = $pdo->query('SELECT * FROM credentials where uid="'.$uid.'"');
+    $ad="";
+    echo "<table>";
+    echo "<tr>";
+    echo "<th>Pts. </th>";
+    echo "<th>User ID</th>";
+    echo "<th>User Password</th>";
+    echo "<th>Name</th>";
+    echo "<th>Admin</th>";
+    echo "<th>Email</th>";
+    echo "<th>Update</th>";
+    echo "</tr>";
+    
+    while ($row=$stmt2->fetch(PDO::FETCH_ASSOC))
+    {
+         echo '<form method="post">';
+        echo "<tr>";
+        echo '<td><input type="text" name="uno" value="'.$row['uno'].'" hidden></input></td>';
+        echo '<td><input type="text" name="uid" value="'.$row['uid'].'"></input></td>';
+        echo '<td><input type="text" name="upd" value="'.$row['upd'].'"></input></td>';
+        echo '<td><input type="text" name="name" value="'.$row['name'].'"></input></td>';
+        echo '<td>'.$row['admin'].'</td>';
+        echo '<td><input type="email" name="email" value="'.$row['email'].'""></input></td>';
+        echo '<td><button name="update_button"> Update Information</button></td>';
+        echo "</tr>"; 
+        echo '</form>';
+        $ad=$row['admin'];
+    }
+        
+    echo "</table>";
+    if (isset($_POST["update_button"]))
+    {
+        
+        if (updating_user_info($_POST["uno"],$_POST["uid"],$_POST["upd"],$_POST["name"],$ad,$_POST["email"])=="pass")
+        {
+            header("LOCATION: logout.php");
+        }
+
+        
     }
 }

@@ -1,7 +1,10 @@
-<?php 
-session_start();
-require_once('includes/head_section.php') ?>
-	<title>Your Blog | Read More </title>
+<?php
+  session_start();
+  if (isset($_SESSION["admin"]))
+    {
+ ?>
+<?php require_once('includes/head_section.php') ?>
+	<title>Your Blog | Account </title>
 </head>
 <body>
 	<!-- container - wraps whole page -->
@@ -21,21 +24,26 @@ require_once('includes/head_section.php') ?>
 			</div>
 			<div class="account">
 				<h2 class="acc">Hi <?php echo $_SESSION["uid"] ?> </h2>
+				<a class="acc" href="createblog.php">Create a blog</a>
 				<a class="acc" href="logout.php">LOGOUT</a>
 			</div>
 		</div>
-
-		<!-- Page content -->
 		<div class="content">
-			<h2 class="content-title">Blog</h2>
+			<h2 class="content-title"> YOUR CREDENTIALS</h2>
 
 			<hr>
 			<?php
-				 include('db.php') ;
-				 create_post($_SESSION["uid"]);
+				ini_set("display_errors", 1);
+				error_reporting(E_ALL);
+				 include('db.php') ;		
+				 personal_info($_SESSION["uid"]);
 			?>
 		</div>
-		<!-- // Page content -->
-
 		<!-- footer -->
 <?php include('includes/footer.php') ?>
+<?php
+       }
+      else {
+        header("LOCATION: account.php ");
+      }
+  ?>

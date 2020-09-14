@@ -31,15 +31,16 @@
 				</p>
 			</div>
 			<div class="account">
-				<h2>Hi <?php echo $_SESSION["uid"] ?> </h2>
-				<a href="createblog.php">Create a blog</a>
+				<h2 class="acc">Hi <?php echo $_SESSION["uid"] ?> </h2>
+				<a class="acc" href="createblog.php">Create a blog</a>
 				<?php
 				 if($_SESSION["admin"]=="yes")
 				 {
-				 	echo '<a href="userinfo.php"><br>Update Users Information<br></a>';
+				 	echo '<a class="acc" href="userinfo.php"><br>Update Users Information<br></a>';
 				 }
 				 ?>
-				<a href="logout.php">LOGOUT</a>
+				 <a class="acc" href="personal.php">Update Personal Information</a><br>
+				<a class="acc" href="logout.php">LOGOUT</a>
 			</div>
 		</div>
 

@@ -3,6 +3,8 @@
 	if (isset($_COOKIE["uid"]))
 		{
 			$_SESSION["logged_in"]="pass";
+			$_SESSION["uid"]=$_COOKIE["uid"];
+			$_SESSION["admin"]=$_COOKIE["admin"];
 		}
 	if((isset($_SESSION["logged_in"]))&&($_SESSION["logged_in"]=='pass'))
 	{
@@ -71,15 +73,15 @@
 						}
 						else
 						{
-							if (!empty($_POST['remember']))
-							{
-								setcookie ("uid", $_POST['uid'], time()+ (10 * 365 * 24 * 60 * 60));
-							}
-							
 							$_SESSION["uid"]=$_POST['uid'];
 							$_SESSION["admin"]=admin($_SESSION["uid"]);
 							$_SESSION["success"]="Login success";
 							$_SESSION["logged_in"]="pass";
+							if (!empty($_POST['remember']))
+							{
+								setcookie ("uid", $_POST['uid'], time()+ (10 * 365 * 24 * 60 * 60));
+								setcookie ("admin", $_POST['admin'], time()+ (10 * 365 * 24 * 60 * 60));
+							}
 							header("LOCATION: account.php");
 						}
 					}

@@ -12,7 +12,7 @@ body {
  /*HEADINGS DEFAULT */
 h1, h2, h3, h4, h5, h6 { 
 	color: #444;
-	 font-family: 'Averia Serif Libre', cursive; 
+	font-family: 'Averia Serif Libre', cursive; 
 }
 
 a {
@@ -276,15 +276,24 @@ table, th, td {
 	margin:10px 0px 15px 0px;
 }
 
-#e{
+#e {
   color: red;
 }
 
- #g{
+ #g {
   color: green;
 }
 
-/*Account*/
+/*Acc */
+ .acc {
+ 	display: block;
+	padding-bottom:  15px;
+	font-size: 1.2em;
+	text-decoration: none;
+	color: #B9E6F2;
+    margin: 25px 0px;
+    font-family: 'Averia Serif Libre', cursive;
+}
 
-/*Updateinfo*/
+
 
