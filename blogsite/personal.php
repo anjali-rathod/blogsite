@@ -1,6 +1,7 @@
 <?php
   session_start();
-  if (isset($_SESSION["admin"]))
+  $h=$_SESSION["logged_in"];
+    if($h=='pass')
     {
  ?>
 <?php require_once('includes/head_section.php') ?>
@@ -36,7 +37,7 @@
 				ini_set("display_errors", 1);
 				error_reporting(E_ALL);
 				 include('db.php') ;		
-				 personal_info($_SESSION["uid"]);
+				 personal_info($_SESSION["uid"],$_SESSION["uno"]);
 			?>
 		</div>
 		<!-- footer -->

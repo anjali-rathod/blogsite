@@ -1,5 +1,10 @@
 <?php 
 session_start();
+ini_set("display_errors", 1);
+	error_reporting(E_ALL);
+	$h=$_SESSION["logged_in"];
+    if($h=='pass')
+    {
 require_once('includes/head_section.php') ?>
 	<title>Your Blog | Read More </title>
 </head>
@@ -20,8 +25,8 @@ require_once('includes/head_section.php') ?>
 				</p>
 			</div>
 			<div class="account">
-				<h2>Hi <?php echo $_SESSION["uid"] ?> </h2>
-				<a href="logout.php">LOGOUT</a>
+				<h2 class="acc">Hi <?php echo $_SESSION["uid"] ?> </h2>
+				<a class="acc" href="logout.php">LOGOUT</a>
 			</div>
 		</div>
 
@@ -32,10 +37,15 @@ require_once('includes/head_section.php') ?>
 			<hr>
 			<?php
 				 include('db.php') ;
-				 edit_post($_GET['id']);
+				 edit_post($_GET['id'],$_SESSION["uid"],$_SESSION["uno"]);
 			?>
 		</div>
 		<!-- // Page content -->
 
 		<!-- footer -->
-<?php include('includes/footer.php') ?>
+<?php include('includes/footer.php');
+	}
+	else
+	{
+		header("LOCATION: index.php");
+	} ?>

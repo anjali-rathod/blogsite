@@ -75,6 +75,7 @@
 						{
 							$_SESSION["uid"]=$_POST['uid'];
 							$_SESSION["admin"]=admin($_SESSION["uid"]);
+							$_SESSION["uno"]=uno($_SESSION["uid"]);
 							$_SESSION["success"]="Login success";
 							$_SESSION["logged_in"]="pass";
 							if (!empty($_POST['remember']))
@@ -85,8 +86,7 @@
 							header("LOCATION: account.php");
 						}
 					}
-
-				 ?>
+				?>
 
 			</div>
 		</div>

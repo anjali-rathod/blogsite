@@ -50,8 +50,8 @@
 
 			<hr>
 			<?php
-				 include('db.php') ;		
-				 disp_account_blog($_SESSION["uid"]);
+				 include('db.php') ;	
+				 disp_account_blog($_SESSION["uid"],$_SESSION["uno"]);
 			?>
 		</div>
 		<!-- // Page content -->

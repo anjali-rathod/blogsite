@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if (isset($_SESSION["admin"]))
+  if ($_SESSION["admin"]=="yes")
     {
  ?>
 <?php require_once('includes/head_section.php') ?>
@@ -23,9 +23,9 @@
 				</p>
 			</div>
 			<div class="account">
-				<h2>Hi <?php echo $_SESSION["uid"] ?> </h2>
-				<a href="createblog.php">Create a blog</a>
-				<a href="logout.php">LOGOUT</a>
+				<h2 class="acc">Hi <?php echo $_SESSION["uid"] ?> </h2>
+				<a class="acc" href="createblog.php">Create a blog</a>
+				<a class="acc" href="logout.php">LOGOUT</a>
 			</div>
 		</div>
 		<div class="content">
